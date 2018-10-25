@@ -24,12 +24,50 @@
 
 package com.jcalvopinam.messageencryptor;
 
+import com.jcalvopinam.messageencryptor.core.Crypt;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class MessageEncryptorApplicationTests {
 
+    private static final String PASSWORD = "123";
+    private static final String MESSAGE = "Hello, World!";
+    private static final String MESSAGE_ENCRYPTED = "3Gk0aUeeBdox2debiyIE1w==";
+
     @Test
-    public void contextLoads() {
+    public void testEncryptWhenMessageIsNotNull() {
+        String encrypt = Crypt.encrypt(PASSWORD, MESSAGE);
+        Assert.assertNotNull(encrypt);
+    }
+
+    @Test
+    public void testEncryptWhenPasswordIsNull() {
+        String encrypt = Crypt.encrypt(null, MESSAGE);
+        Assert.assertNull(encrypt);
+    }
+
+    @Test
+    public void testEncryptWhenMessageIsNull() {
+        String encrypt = Crypt.encrypt(PASSWORD, null);
+        Assert.assertNull(encrypt);
+    }
+
+    @Test
+    public void testDecryptWhenMessageIsNotNull() {
+        String decrypt = Crypt.decrypt(PASSWORD, MESSAGE_ENCRYPTED);
+        Assert.assertNotNull(decrypt);
+    }
+
+    @Test
+    public void testDecryptWhenPasswordIsNull() {
+        String encrypt = Crypt.decrypt(null, MESSAGE);
+        Assert.assertNull(encrypt);
+    }
+
+    @Test
+    public void testDecryptWhenMessageIsNull() {
+        String encrypt = Crypt.decrypt(PASSWORD, null);
+        Assert.assertNull(encrypt);
     }
 
 }
